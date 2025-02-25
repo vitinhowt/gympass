@@ -11,17 +11,13 @@ import {
 } from "fastify-type-provider-zod";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
+import { userRoutes } from "./http/controllers/user/route";
 
 export const app = fastify();
 
-// This is a custom plugin that will allow us to use Zod schemas for validation and serialization
-app.setValidatorCompiler(validatorCompiler);
-app.setSerializerCompiler(serializerCompiler);
-
 app.register(fastifySwagger, {
-  mode: "dynamic",
   openapi: {
-    openapi: "3.1.0",
+    openapi: "3.0.3",
     info: {
       title: "Fastify API",
       version: "1.0.0",
@@ -29,7 +25,6 @@ app.register(fastifySwagger, {
     },
     servers: [{ url: "http://localhost:3333" }],
   },
-  transform: jsonSchemaTransform,
 });
 
 app.register(fastifySwaggerUi, {
@@ -48,6 +43,8 @@ app.register(fastifyJwt, {
 });
 
 app.register(cookie);
+
+app.register(userRoutes);
 
 app.setErrorHandler((error, _request, reply) => {
   if (error instanceof ZodError) {
