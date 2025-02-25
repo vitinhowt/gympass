@@ -1,12 +1,12 @@
-import type { CheckIn, Prisma } from "@prisma/client";
-import type { CheckInsRepository } from "../utils/check-ins-repository";
-import { prisma } from "@/lib/prisma";
-import dayjs from "dayjs";
+import { prisma } from '@/lib/prisma'
+import type { CheckIn, Prisma } from '@prisma/client'
+import dayjs from 'dayjs'
+import type { CheckInsRepository } from '../utils/check-ins-repository'
 
 export class PrismaCheckInsRepository implements CheckInsRepository {
   async findByUserIdOnDate(userId: string, date: Date) {
-    const startOfTheDay = dayjs(date).startOf("date");
-    const endOfTheDay = dayjs(date).endOf("date");
+    const startOfTheDay = dayjs(date).startOf('date')
+    const endOfTheDay = dayjs(date).endOf('date')
 
     const checkIn = await prisma.checkIn.findFirst({
       where: {
@@ -16,9 +16,9 @@ export class PrismaCheckInsRepository implements CheckInsRepository {
           lte: endOfTheDay.toDate(),
         },
       },
-    });
+    })
 
-    return checkIn;
+    return checkIn
   }
 
   async findManyByUserCheckIns(userId: string, page: number) {
@@ -28,8 +28,8 @@ export class PrismaCheckInsRepository implements CheckInsRepository {
       },
       take: 20,
       skip: (page - 1) * 20,
-    });
-    return checkIns;
+    })
+    return checkIns
   }
 
   async countByUserId(userId: string) {
@@ -37,17 +37,17 @@ export class PrismaCheckInsRepository implements CheckInsRepository {
       where: {
         user_id: userId,
       },
-    });
+    })
 
-    return count;
+    return count
   }
 
   async create(data: Prisma.CheckInUncheckedCreateInput) {
     const checkIn = await prisma.checkIn.create({
       data,
-    });
+    })
 
-    return checkIn;
+    return checkIn
   }
 
   async findByCheckInId(checkInId: string) {
@@ -55,9 +55,9 @@ export class PrismaCheckInsRepository implements CheckInsRepository {
       where: {
         id: checkInId,
       },
-    });
+    })
 
-    return checkIn;
+    return checkIn
   }
 
   async save(data: CheckIn) {
@@ -66,8 +66,8 @@ export class PrismaCheckInsRepository implements CheckInsRepository {
         id: data.id,
       },
       data,
-    });
+    })
 
-    return checkIn;
+    return checkIn
   }
 }

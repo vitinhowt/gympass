@@ -1,9 +1,9 @@
-import type { Gym, Prisma } from "@prisma/client";
+import { prisma } from '@/lib/prisma'
+import type { Gym, Prisma } from '@prisma/client'
 import type {
-  findManyNearbyParams,
   GymsRepository,
-} from "../utils/gyms-repository";
-import { prisma } from "@/lib/prisma";
+  findManyNearbyParams,
+} from '../utils/gyms-repository'
 
 export class PrismaGymsRepository implements GymsRepository {
   async findById(id: string) {
@@ -11,14 +11,14 @@ export class PrismaGymsRepository implements GymsRepository {
       where: {
         id,
       },
-    });
-    return gym;
+    })
+    return gym
   }
 
   async create(data: Prisma.GymCreateInput) {
-    const gym = await prisma.gym.create({ data });
+    const gym = await prisma.gym.create({ data })
 
-    return gym;
+    return gym
   }
 
   async searchMany(query: string, page: number) {
@@ -28,8 +28,8 @@ export class PrismaGymsRepository implements GymsRepository {
       },
       take: 20,
       skip: (page - 1) * 20,
-    });
-    return gyms;
+    })
+    return gyms
   }
 
   async findManyNearby({ latitude, longitude }: findManyNearbyParams) {
@@ -37,8 +37,8 @@ export class PrismaGymsRepository implements GymsRepository {
     const gyms = await prisma.$queryRaw<Gym[]>`
     SELECT * FROM gyms
     WHERE ( 6371 * acos( cos( radians(${latitude}) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(${longitude}) ) + sin( radians(${latitude}) ) * sin( radians( latitude ) ) ) ) <= 10
-    `;
+    `
 
-    return gyms;
+    return gyms
   }
 }

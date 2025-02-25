@@ -1,9 +1,9 @@
-import { PrismaUsersRepository } from "@/repositories/prisma/users-repository";
-import { RegisterUseCase } from "@/usecases/register";
+import { PrismaUsersRepository } from '@/repositories/prisma/users-repository'
+import { RegisterUseCase } from '@/usecases/register'
 
 export function makeRegisterUseCase() {
-  const UsersRepository = new PrismaUsersRepository();
-  const registerUserCase = new RegisterUseCase(UsersRepository);
+  const UsersRepository = new PrismaUsersRepository()
+  const registerUserCase = new RegisterUseCase(UsersRepository)
 
-  return registerUserCase;
+  return registerUserCase
 }

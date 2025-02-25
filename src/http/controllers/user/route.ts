@@ -1,56 +1,52 @@
-import  { FastifyInstance } from "fastify";
-import { register } from "./register.controller";
+import type { FastifyInstance } from 'fastify'
+import { register } from './register.controller'
 
 export async function userRoutes(app: FastifyInstance) {
   app.post(
-    "/register",
+    '/register',
     {
       schema: {
-        description: "Registra um novo usuário",
-        tags: ["Usuários"],
+        description: 'Registra um novo usuário',
+        tags: ['Usuários'],
         body: {
-          type: "object",
-          required: ["name", "email", "password"],
+          type: 'object',
+          required: ['name', 'email', 'password'],
           properties: {
-            name: { type: "string", description: "Nome do usuário" },
+            name: { type: 'string', description: 'Nome do usuário' },
             email: {
-              type: "string",
-              format: "email",
-              description: "E-mail do usuário",
+              type: 'string',
+              format: 'email',
+              description: 'E-mail do usuário',
             },
             password: {
-              type: "string",
+              type: 'string',
               minLength: 6,
-              description: "Senha do usuário",
+              description: 'Senha do usuário',
             },
           },
         },
         response: {
           201: {
-            description: "Usuário registrado com sucesso",
-            type: "null",
+            description: 'Usuário registrado com sucesso',
+            type: 'null',
           },
           400: {
-            description: "Erro de validação",
-            type: "object",
+            description: 'Erro de validação',
+            type: 'object',
             properties: {
-              message: { type: "string" },
+              message: { type: 'string' },
             },
           },
           409: {
-            description: "Usuário já existe",
-            type: "object",
+            description: 'Usuário já existe',
+            type: 'object',
             properties: {
-              message: { type: "string" },
+              message: { type: 'string' },
             },
           },
         },
       },
     },
     register
-  );
-
-
-
-  
+  )
 }
