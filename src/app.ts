@@ -1,15 +1,11 @@
 import cookie from "@fastify/cookie";
 import fastifyJwt from "@fastify/jwt";
-import fastify from "fastify";
-
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
-import {
-  jsonSchemaTransform,
-  serializerCompiler,
-  validatorCompiler,
-} from "fastify-type-provider-zod";
+import fastify from "fastify";
+import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 import { ZodError } from "zod";
+
 import { env } from "./env";
 import { userRoutes } from "./http/controllers/user/route";
 
@@ -66,7 +62,7 @@ app.setErrorHandler((error, _request, reply) => {
   if (env.NODE_ENV !== "production") {
     console.error(error);
   } else {
-    // TODO: Here we should log to an external tool like a DataDog/NewRelic/Sentry
+    // TODO: log para producao como DataDog/NewRelic/Sentry
   }
 
   return reply.status(500).send({ message: "Internal server error" });
