@@ -10,7 +10,7 @@ npm i
 
 - para rodar as migrações
 ```
-npx i prisma migrate dev
+npx prisma migrate dev
 ```
 
 
