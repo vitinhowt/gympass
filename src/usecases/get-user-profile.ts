@@ -13,7 +13,7 @@ interface GetUserProfileResponse {
 export class GetUserProfileUseCase {
   
 
-  constructor(private usersRepository: UsersRepository) {
+  constructor(private readonly usersRepository: UsersRepository) {
     this.usersRepository = usersRepository;
   }
 
