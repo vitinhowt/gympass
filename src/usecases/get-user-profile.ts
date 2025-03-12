@@ -11,7 +11,7 @@ interface GetUserProfileResponse {
 }
 
 export class GetUserProfileUseCase {
-  private static readonly maxAttempts = 3;
+  
 
   constructor(private usersRepository: UsersRepository) {
     this.usersRepository = usersRepository;
