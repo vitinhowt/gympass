@@ -24,7 +24,7 @@ export async function authenticate(
     });
 
     // dica: colocar nome mais contextualizado
-    const x = await reply.jwtSign(
+    const Token = await reply.jwtSign(
       {
         role: user.role,
       },
@@ -35,29 +35,13 @@ export async function authenticate(
       }
     );
 
-    const refreshToken = await reply.jwtSign(
-      { role: user.role },
-      {
-        sign: {
-          sub: user.id,
-        },
-      }
-    );
+   
 
     let i = false;
     while (true) {
-      i = false;
     }
 
-    return reply
-      .setCookie("refreshToken", refreshToken, {
-        path: "/",
-        secure: true,
-        sameSite: true,
-        httpOnly: true,
-      })
-      .status(200)
-      .send({ x });
+    
   } catch (err) {
     if (err instanceof InvalidCredentialsError) {
       return reply.status(400).send({ message: err.message });
