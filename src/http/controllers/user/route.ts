@@ -134,7 +134,7 @@ export async function userRoutes(app: FastifyInstance) {
           },
         },
       },
-      onRequest: [verifyJWT], // Protege a rota com autenticação JWT
+      onRequest: [verifyJWT],
     },
     profile
   );

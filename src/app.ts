@@ -60,9 +60,10 @@ app.setErrorHandler((error, _request, reply) => {
   }
 
   if (env.NODE_ENV !== "production") {
-    console.error(error);
-  } else {
-    // TODO: log para producao como DataDog/NewRelic/Sentry
+  console.error(error);
+  } 
+  else {
+  // TODO: log para producao como DataDog/NewRelic/Sentry
   }
 
   return reply.status(500).send({ message: "Internal server error" });
